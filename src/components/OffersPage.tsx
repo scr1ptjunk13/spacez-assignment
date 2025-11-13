@@ -687,11 +687,11 @@ export default function OffersPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Sticky Header */}
-      <div className="sticky top-16 bg-white z-10">
+      <div className="sticky top-14 bg-white z-10 border-t border-gray-200 shadow-md">
         <div className="px-4 pt-0 pb-0">
           {/* Offers Header */}
           <h1 
-            className="font-semibold mb-2 opacity-100"
+            className="font-semibold opacity-100"
             style={{
               width: '345px',
               height: '28px',
@@ -701,7 +701,8 @@ export default function OffersPage() {
               lineHeight: '28px', // heading L line-height
               letterSpacing: '0px', // heading L letter-spacing
               verticalAlign: 'middle',
-              paddingTop: '16px'
+              paddingTop: '20px',
+              marginBottom: '16px'
             }}
           >
             Offers
@@ -713,7 +714,7 @@ export default function OffersPage() {
               className="bg-white mb-4 opacity-100"
               style={{
                 width: '100%',
-                paddingTop: '16px',
+                paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '16px',
                 paddingLeft: '0px',
@@ -738,7 +739,7 @@ export default function OffersPage() {
                     fontWeight: '400',
                     lineHeight: '20px',
                     letterSpacing: '0px',
-                    margin: '0 0 12px 0'
+                    margin: '16px 0 12px 0'
                   }}
                 >
                   Sign in to unlock exclusive additional rewards
@@ -775,7 +776,7 @@ export default function OffersPage() {
           )}
 
           {/* Tabs */}
-          <div className="flex border-b border-gray-200">
+          <div className="flex">
             {['Coupons', 'Giftcards', 'Payment Offers'].map((tab) => (
               <button
                 key={tab}
@@ -791,6 +792,8 @@ export default function OffersPage() {
             ))}
           </div>
         </div>
+        {/* Full width border line */}
+        <div className="border-b border-gray-200"></div>
       </div>
 
       {/* Scrollable Content */}

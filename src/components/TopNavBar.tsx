@@ -10,12 +10,10 @@ export default function TopNavBar() {
         justifyContent: 'space-between',
         top: '40px',
         paddingTop: '16px', // padding/400
-        paddingRight: '20px', // padding/500
+        paddingRight: '24px', // padding/600
         paddingBottom: '16px', // padding/400
         paddingLeft: '24px', // padding/600
-        backgroundColor: '#FFFFFF', // semantic background
-        borderBottom: '1px solid #E5E6E5', // semantic border
-        borderBottomWidth: '0.25px' // border/25
+        backgroundColor: '#FFFFFF' // semantic background
       }}
     >
       {/* Left side - Logo */}
