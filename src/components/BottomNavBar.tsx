@@ -8,10 +8,10 @@ interface BottomNavBarProps {
 export default function BottomNavBar({ activeTab = 'offers' }: BottomNavBarProps) {
   const navItems = [
     { id: 'explore', label: 'Explore', icon: '/assets/search.svg', href: '/explore' },
-    { id: 'offers', label: 'Offers', icon: '/assets/offer-BOLD.svg', href: '/' },
+    { id: 'offers', label: 'Offers', icon: '/assets/offers.svg', href: '/' },
     { id: 'bookings', label: 'Bookings', icon: '/assets/bookings.svg', href: '/bookings' },
     { id: 'wishlist', label: 'Wishlist', icon: '/assets/favourite.svg', href: '/wishlist' },
-    { id: 'signin', label: 'Sign In', icon: '/assets/signin.svg', href: '/signin' },
+    { id: 'profile', label: 'Profile', icon: '/assets/signin.svg', href: '/profile' },
   ];
 
   return (
@@ -28,25 +28,18 @@ export default function BottomNavBar({ activeTab = 'offers' }: BottomNavBarProps
               />
             </div>
             <span 
-              className="mt-1"
+              className="mt-1 text-xs"
               style={{
-                width: '345px',
-                height: '20px',
-                fontFamily: 'var(--heading-heading-xs-font)',
-                fontWeight: 'var(--heading-heading-xs-weight)',
-                fontStyle: 'SemiBold',
-                fontSize: 'var(--heading-heading-xs-size)',
-                lineHeight: 'var(--heading-heading-xs-line-height)',
-                letterSpacing: 'var(--heading-heading-xs-letter-spacing)',
+                fontSize: '12px',
+                fontWeight: '500',
                 textAlign: 'center',
-                verticalAlign: 'middle',
-                color: activeTab === item.id ? 'var(--colour-semantic-text-text-brand, #874B2C)' : '#6B7280'
+                color: activeTab === item.id ? '#874B2C' : '#6B7280'
               }}
             >
               {item.label}
             </span>
             {activeTab === item.id && (
-              <div className="w-8 h-0.5 bg-orange-600 mt-1 rounded-full"></div>
+              <div className="w-12 h-0.5 bg-orange-600 mt-1 rounded-full"></div>
             )}
           </Link>
         ))}
