@@ -25,19 +25,17 @@ export default function BottomNavBar({ activeTab = 'offers' }: BottomNavBarProps
                 alt={item.label}
                 width={24}
                 height={24}
-                className={activeTab === item.id ? 'filter brightness-0 saturate-100 hue-rotate-15' : ''}
               />
             </div>
             <span 
               className="mt-1"
               style={{
-                width: '44px',
+                width: '345px',
                 height: '20px',
                 fontFamily: 'var(--heading-heading-xs-font)',
                 fontWeight: 'var(--heading-heading-xs-weight)',
                 fontStyle: 'SemiBold',
                 fontSize: 'var(--heading-heading-xs-size)',
-                leadingTrim: 'NONE',
                 lineHeight: 'var(--heading-heading-xs-line-height)',
                 letterSpacing: 'var(--heading-heading-xs-letter-spacing)',
                 textAlign: 'center',
