@@ -1,16 +1,20 @@
 import Image from 'next/image';
 
-export default function TopNavBar() {
+interface TopNavBarProps {
+  onMenuClick?: () => void;
+}
+
+export default function TopNavBar({ onMenuClick }: TopNavBarProps) {
   return (
     <div 
       className="flex items-center opacity-100"
       style={{
-        width: '393px',
+        width: '100%',
         height: '56px',
         justifyContent: 'space-between',
         top: '40px',
         paddingTop: '16px', // padding/400
-        paddingRight: '24px', // padding/600
+        paddingRight: '16px', // padding/400
         paddingBottom: '16px', // padding/400
         paddingLeft: '24px', // padding/600
         backgroundColor: '#FFFFFF' // semantic background
@@ -28,7 +32,10 @@ export default function TopNavBar() {
       </div>
 
       {/* Right side - Menu icon */}
-      <button className="flex items-center justify-center">
+      <button 
+        className="flex items-center justify-center transition-all duration-150 ease-out active:scale-95 active:opacity-80"
+        onClick={() => onMenuClick?.()}
+      >
         <Image
           src="/assets/menu.svg"
           alt="Menu"

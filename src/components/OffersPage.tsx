@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import TopNavBar from './TopNavBar';
 
 interface CouponProps {
   code: string;
@@ -32,7 +33,8 @@ function CouponCard({ code, title, description, discount, color }: CouponProps) 
     <div 
       className="flex mb-4 overflow-hidden opacity-100"
       style={{
-        width: '345px',
+        width: '100%',
+        maxWidth: '400px',
         height: '184px',
         backgroundColor: 'rgba(193, 107, 62, 0.1)' // Lower opacity #C16B3E for separation
       }}
@@ -567,9 +569,17 @@ export default function OffersPage() {
   const [activeTab, setActiveTab] = useState('Coupons');
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [popup, setPopup] = useState<string | null>(null);
   const couponsRef = useRef<HTMLDivElement>(null);
   const giftcardsRef = useRef<HTMLDivElement>(null);
   const paymentRef = useRef<HTMLDivElement>(null);
+
+  const showPopup = (message: string) => {
+    setPopup(message);
+    setTimeout(() => {
+      setPopup(null);
+    }, 2000);
+  };
 
   const coupons = [
     {
@@ -686,6 +696,18 @@ export default function OffersPage() {
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      {/* Popup */}
+      {popup && (
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-black text-white px-4 py-2 rounded-md shadow-lg">
+          {popup}
+        </div>
+      )}
+      
+      {/* Sticky Top Navigation */}
+      <div className="sticky top-0 z-20 bg-white">
+        <TopNavBar onMenuClick={() => showPopup('Menu clicked')} />
+      </div>
+      
       {/* Sticky Header */}
       <div className="sticky top-14 bg-white z-10 border-t border-gray-200 shadow-md">
         <div className="px-4 pt-0 pb-0">
@@ -804,43 +826,43 @@ export default function OffersPage() {
             className="mb-4 opacity-100"
             style={{
               width: '345px',
-              height: '22px',
-              color: 'var(--colour-semantic-text-text, #4B4E4B)',
-              fontSize: '16px', // heading S size
-              fontWeight: '500', // Medium
-              lineHeight: '22px',
-              letterSpacing: '0px', // heading S letter-spacing
+              height: '24px',
+              color: '#4B4E4B',
+              fontSize: '18px',
+              fontWeight: '600', // SemiBold 
+              lineHeight: '24px',
+              letterSpacing: '0px',
               verticalAlign: 'bottom'
             }}
           >
             Sitewide coupons:
           </h2>
-          {coupons.map((coupon, index) => (
-            <CouponCard key={index} {...coupon} />
-          ))}
+          <div className="flex flex-col items-center w-full px-2">
+            {coupons.map((coupon, index) => (
+              <CouponCard key={index} {...coupon} />
+            ))}
+          </div>
         </div>
 
         {/* Bonus Gift Cards */}
         <div ref={giftcardsRef} className="mb-6">
           <h2 
-            className="mb-4"
+            className="mb-2 opacity-100"
             style={{
-              width: '136px',
-              height: '22px',
-              fontFamily: 'var(--heading-heading-s-font)',
-              fontWeight: 'var(--heading-heading-s-weight)',
-              fontStyle: 'Medium',
-              fontSize: 'var(--heading-heading-s-size)',
-              lineHeight: '22px',
-              letterSpacing: 'var(--heading-heading-s-letter-spacing)',
-              verticalAlign: 'bottom',
-              color: '#4B4E4B'
+              width: '345px',
+              height: '24px',
+              color: '#4B4E4B',
+              fontSize: '18px',
+              fontWeight: '600', // SemiBold 
+              lineHeight: '24px',
+              letterSpacing: '0px',
+              verticalAlign: 'bottom'
             }}
           >
             Bonus gift cards:
           </h2>
           {isSignedIn ? (
-            <div>
+            <div className="flex flex-col items-center w-full px-2">
               <p className="text-sm text-gray-600 mb-4">Collect multiple of these</p>
               {giftCardOffers.map((offer, index) => (
                 <GiftCardCoupon key={index} {...offer} />
@@ -873,7 +895,7 @@ export default function OffersPage() {
               
               {/* Standard Sign In Button */}
               <button 
-                onClick={() => setIsSignedIn(true)}
+                onClick={() => showPopup('Gift card clicked')}
                 className="transition-all duration-150 ease-out active:scale-95 active:opacity-80"
                 style={{
                   width: '345px',
@@ -900,21 +922,24 @@ export default function OffersPage() {
         </div>
 
         {/* Payment Offers */}
-        <div ref={paymentRef} className="mb-6">
+        <div ref={paymentRef} className="mb-6 mt-12">
           <h2 
-            className="mb-4"
+            className="mb-2 opacity-100"
             style={{
+              width: '345px',
+              height: '24px',
               color: '#4B4E4B',
-              fontSize: '16px',
-              fontWeight: '500',
-              lineHeight: '22px',
-              letterSpacing: '0px'
+              fontSize: '18px',
+              fontWeight: '600', // SemiBold 
+              lineHeight: '24px',
+              letterSpacing: '0px',
+              verticalAlign: 'bottom'
             }}
           >
             Payment offers:
           </h2>
           {isSignedIn ? (
-            <div>
+            <div className="flex flex-col items-center w-full px-2">
               {paymentOffers.map((offer, index) => (
                 <PaymentOfferCard key={index} {...offer} />
               ))}
@@ -946,7 +971,7 @@ export default function OffersPage() {
               
               {/* Standard Sign In Button */}
               <button 
-                onClick={() => setIsSignedIn(true)}
+                onClick={() => showPopup('Unlock offers clicked')}
                 className="opacity-100 transition-all duration-150 ease-out active:scale-95 active:opacity-80"
                 style={{ 
                   width: '345px', 
