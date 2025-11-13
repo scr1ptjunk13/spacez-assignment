@@ -456,7 +456,7 @@ function PaymentOfferCard({ code, title, description, discount, color }: CouponP
           {/* Logo and Title */}
           <div className="flex items-center gap-2">
             <img 
-              src={`/assets/${code.toLowerCase()}-logo.png`}
+              src={`/assets/${code}.png`}
               alt={`${title} logo`}
               width="24"
               height="24"
@@ -745,7 +745,7 @@ export default function OffersPage() {
                 </p>
                 <button 
                   onClick={() => setIsSignedIn(true)}
-                  className="opacity-100"
+                  className="opacity-100 transition-all duration-150 ease-out active:scale-95 active:opacity-80"
                   style={{ 
                     width: '100%', 
                     height: '40px',
@@ -759,7 +759,9 @@ export default function OffersPage() {
                     border: 'none',
                     fontSize: '16px',
                     fontWeight: '500',
-                    borderRadius: '0px'
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    touchAction: 'manipulation'
                   }}
                 >
                   Sign in
@@ -869,6 +871,7 @@ export default function OffersPage() {
               {/* Standard Sign In Button */}
               <button 
                 onClick={() => setIsSignedIn(true)}
+                className="transition-all duration-150 ease-out active:scale-95 active:opacity-80"
                 style={{
                   width: '345px',
                   height: '40px',
@@ -881,7 +884,10 @@ export default function OffersPage() {
                   gap: '6px',
                   border: 'none',
                   fontSize: '16px',
-                  fontWeight: '500'
+                  fontWeight: '500',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  touchAction: 'manipulation'
                 }}
               >
                 Claim gift cards »
@@ -938,7 +944,7 @@ export default function OffersPage() {
               {/* Standard Sign In Button */}
               <button 
                 onClick={() => setIsSignedIn(true)}
-                className="opacity-100"
+                className="opacity-100 transition-all duration-150 ease-out active:scale-95 active:opacity-80"
                 style={{ 
                   width: '345px', 
                   height: '40px',
@@ -951,7 +957,10 @@ export default function OffersPage() {
                   gap: '6px',
                   border: 'none',
                   fontSize: '16px',
-                  fontWeight: '500'
+                  fontWeight: '500',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  touchAction: 'manipulation'
                 }}
               >
                 Unlock offers »
