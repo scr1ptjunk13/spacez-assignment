@@ -1,10 +1,12 @@
+'use client';
+
 import TopNavBar from '@/components/TopNavBar';
 import BottomNavBar from '@/components/BottomNavBar';
 
 export default function ProfilePage() {
   return (
     <div className="bg-gray-50 min-h-screen">
-      <TopNavBar />
+      <TopNavBar onMenuClick={() => console.log('Menu clicked')} />
       
       {/* Main Content */}
       <div className="pt-16 pb-24 flex items-center justify-center min-h-screen">
