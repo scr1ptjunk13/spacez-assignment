@@ -9,9 +9,19 @@ interface CouponProps {
 }
 
 function CouponCard({ code, title, description, discount, color }: CouponProps) {
-  const handleCopy = () => {
-    navigator.clipboard.writeText(code);
-    // You can add a toast notification here
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setIsCopied(true);
+      // Reset the copied state after 2 seconds
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
   };
 
   // Check if discount contains "Flat" to handle different layouts
@@ -124,18 +134,19 @@ function CouponCard({ code, title, description, discount, color }: CouponProps) 
                 <rect width="18" height="18" fill="#D9D9D9"/>
               </mask>
               <g mask="url(#mask0_571_243)">
-                <path d="M6.96204 13.6875C6.44916 13.6875 6.01373 13.5085 5.65573 13.1505C5.29773 12.7925 5.11873 12.3571 5.11873 11.8442V3.15581C5.11873 2.64294 5.29773 2.2075 5.65573 1.8495C6.01373 1.4915 6.44916 1.3125 6.96204 1.3125H13.4004C13.9133 1.3125 14.3487 1.4915 14.7067 1.8495C15.0647 2.2075 15.2437 2.64294 15.2437 3.15581V11.8442C15.2437 12.3571 15.0647 12.7925 14.7067 13.1505C14.3487 13.5085 13.9133 13.6875 13.4004 13.6875H6.96204ZM6.96204 12.075H13.4004C13.4582 12.075 13.511 12.0509 13.559 12.0028C13.6072 11.9548 13.6312 11.9019 13.6312 11.8442V3.15581C13.6312 3.09806 13.6072 3.04519 13.559 2.99719C13.511 2.94906 13.4582 2.925 13.4004 2.925H6.96204C6.90429 2.925 6.85141 2.94906 6.80341 2.99719C6.75529 3.04519 6.73123 3.09806 6.73123 3.15581V11.8442C6.73123 11.9019 6.75529 11.9548 6.80341 12.0028C6.85141 12.0509 6.90429 12.075 6.96204 12.075ZM3.84954 16.8C3.33666 16.8 2.90123 16.621 2.54323 16.263C2.18523 15.905 2.00623 15.4696 2.00623 14.9567V4.65581H3.61873V14.9567C3.61873 15.0144 3.64279 15.0673 3.69091 15.1153C3.73891 15.1634 3.79179 15.1875 3.84954 15.1875H11.9004V16.8H3.84954Z" fill="#874B2C"/>
+                <path d="M6.96204 13.6875C6.44916 13.6875 6.01373 13.5085 5.65573 13.1505C5.29773 12.7925 5.11873 12.3571 5.11873 11.8442V3.15581C5.11873 2.64294 5.29773 2.2075 5.65573 1.8495C6.01373 1.4915 6.44916 1.3125 6.96204 1.3125H13.4004C13.9133 1.3125 14.3487 1.4915 14.7067 1.8495C15.0647 2.2075 15.2437 2.64294 15.2437 3.15581V11.8442C15.2437 12.3571 15.0647 12.7925 14.7067 13.1505C14.3487 13.5085 13.9133 13.6875 13.4004 13.6875H6.96204ZM6.96204 12.075H13.4004C13.4582 12.075 13.511 12.0509 13.559 12.0028C13.6072 11.9548 13.6312 11.9019 13.6312 11.8442V3.15581C13.6312 3.09806 13.6072 3.04519 13.559 2.99719C13.511 2.94906 13.4582 2.925 13.4004 2.925H6.96204C6.90429 2.925 6.85141 2.94906 6.80341 2.99719C6.75529 3.04519 6.73123 3.09806 6.73123 3.15581V11.8442C6.73123 11.9019 6.75529 11.9548 6.80341 12.0028C6.85141 12.0509 6.90429 12.075 6.96204 12.075ZM3.84954 16.8C3.33666 16.8 2.90123 16.621 2.54323 16.263C2.18523 15.905 2.00623 15.4696 2.00623 14.9567V4.65581H3.61873V14.9567C3.61873 15.0144 3.64279 15.0673 3.69091 15.1153C3.73891 15.1634 3.79179 15.1875 3.84954 15.1875H11.9004V16.8H3.84954Z" fill={isCopied ? '#22C55E' : '#874B2C'} style={{ transition: 'fill 0.2s ease' }}/>
               </g>
             </svg>
             {/* Copy Label */}
             <span 
               style={{
-                color: '#874B2C',
+                color: isCopied ? '#22C55E' : '#874B2C',
                 fontSize: '16px',
-                fontWeight: '700'
+                fontWeight: '700',
+                transition: 'color 0.2s ease'
               }}
             >
-              Copy
+              {isCopied ? 'Copied!' : 'Copy'}
             </span>
           </button>
         </div>
@@ -555,6 +566,7 @@ function BrandOfferCard({ brand, logo, description, discount, color, logoColor =
 export default function OffersPage() {
   const [activeTab, setActiveTab] = useState('Coupons');
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   const couponsRef = useRef<HTMLDivElement>(null);
   const giftcardsRef = useRef<HTMLDivElement>(null);
   const paymentRef = useRef<HTMLDivElement>(null);
@@ -613,6 +625,9 @@ export default function OffersPage() {
   // Scroll detection to highlight active tab
   useEffect(() => {
     const handleScroll = () => {
+      // Don't update activeTab if we're programmatically scrolling
+      if (isScrolling) return;
+      
       const scrollPosition = window.scrollY + 280; // Offset for both nav bars
       
       if (couponsRef.current && giftcardsRef.current && paymentRef.current) {
@@ -632,9 +647,13 @@ export default function OffersPage() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isScrolling]);
 
   const scrollToSection = (tab: string) => {
+    // Immediately set the active tab when clicked
+    setActiveTab(tab);
+    setIsScrolling(true);
+    
     let targetRef;
     switch (tab) {
       case 'Coupons':
@@ -657,6 +676,11 @@ export default function OffersPage() {
         top: targetPosition,
         behavior: 'smooth'
       });
+      
+      // Re-enable scroll detection after scrolling is complete
+      setTimeout(() => {
+        setIsScrolling(false);
+      }, 1000); // Adjust timeout based on scroll duration
     }
   };
 
